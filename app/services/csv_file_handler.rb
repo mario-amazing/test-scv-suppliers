@@ -5,7 +5,7 @@ class CsvFileHandler
 
   class << self
     def call
-      CsvFile.all.each do |csv_file|
+      CsvFile.active.each do |csv_file|
         handle_csv(csv_file)
       end
       Supplier.all
@@ -18,7 +18,7 @@ class CsvFileHandler
         # Place here error handler when will be requirements
         file_path = csv_file.attachment.path
         csv_file.attachment_file_name == CsvFile::SUPPLIER_FILE ? handle_supplier(file_path) : handle_sku(file_path)
-        # csv_file.destroy
+        # csv_file.processed!
       end
     end
 

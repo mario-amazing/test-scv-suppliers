@@ -6,4 +6,8 @@ class CsvFile < ApplicationRecord
   validates_attachment :attachment,
     content_type: { content_type: 'text/plain' },
     file_name: { matches: [/#{SUPPLIER_FILE}/, /#{SKU_FILE}/] }
+
+  enum status: { active: 0, processed: 1 }
+
+  scope :active, -> { where(status: 0) }
 end
