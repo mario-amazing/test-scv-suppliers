@@ -8,7 +8,8 @@ class CsvFilesController < ApplicationController
 
     respond_to do |format|
       if @csv_file.save
-        format.html { redirect_to action: :index, notice: 'Csv file was successfully created.' }
+        flash[:notice] = 'Csv file was successfully created.'
+        format.html { redirect_to action: :index }
       else
         format.html { render :index }
       end

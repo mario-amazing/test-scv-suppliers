@@ -22,6 +22,20 @@ class CsvFileHandler
       end
     end
 
+    def handle_sku(file_path)
+      CSV.foreach(file_path, headers: false) do |row|
+        code, name = row.first.split(CSV_SPLITER)
+        next if code.blank? || name.blank?
+
+        Supplier.find_or_initialize_by(code: code).tap do |supplier|
+          next if supplier.name == name
+
+          supplier.name = name
+          supplier.save
+        end
+      end
+    end
+
     def handle_supplier(file_path)
       CSV.foreach(file_path, headers: false) do |row|
         code, name = row.first.split(CSV_SPLITER)

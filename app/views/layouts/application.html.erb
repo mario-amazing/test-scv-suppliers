@@ -9,6 +9,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <%= render partial: 'layouts/navigation' %>
     <main role="main" class='text-center'>
        <%= render 'layouts/messages' %>
        <%= yield %>
