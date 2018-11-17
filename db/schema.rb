@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_17_111041) do
+ActiveRecord::Schema.define(version: 2018_11_17_125050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,20 @@ ActiveRecord::Schema.define(version: 2018_11_17_111041) do
     t.integer "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.integer "status", default: 0
+  end
+
+  create_table "skus", force: :cascade do |t|
+    t.string "sku"
+    t.integer "supplier_code"
+    t.string "name"
+    t.string "additional1"
+    t.string "additional2"
+    t.string "additional3"
+    t.string "additional4"
+    t.string "additional5"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "suppliers", force: :cascade do |t|

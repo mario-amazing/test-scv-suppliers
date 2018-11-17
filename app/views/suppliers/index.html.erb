@@ -12,10 +12,12 @@
 
   <tbody>
     <% @suppliers.each do |supplier| %>
-      <tr>
-        <td><%= supplier.code %></td>
-        <td><%= supplier.name %></td>
-      </tr>
+      <%= cache supplier do %>
+        <tr>
+          <td><%= supplier.code %></td>
+          <td><%= supplier.name %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

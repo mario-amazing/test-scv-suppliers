@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Skus</h1>
+
+<table class='table'>
+  <thead class="thead-dark">
+    <tr>
+      <th>Sku</th>
+      <th>Supplier Name</th>
+      <th>Name</th>
+      <th>Additional1</th>
+      <th>Additional2</th>
+      <th>Additional3</th>
+      <th>Additional4</th>
+      <th>Additional5</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @skus.each do |sku| %>
+      <%= cache sku do %>
+        <tr>
+          <td><%= sku.sku %></td>
+          <td><%= sku.supplier.name %></td>
+          <td><%= sku.name %></td>
+          <td><%= sku.additional1 %></td>
+          <td><%= sku.additional2 %></td>
+          <td><%= sku.additional3 %></td>
+          <td><%= sku.additional4 %></td>
+          <td><%= sku.additional5 %></td>
+          <td><%= sku.price %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
