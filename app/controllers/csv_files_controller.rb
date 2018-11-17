@@ -1,6 +1,4 @@
 class CsvFilesController < ApplicationController
-  before_action :set_csv_file, only: [:show, :edit, :update, :destroy]
-
   def index
     @csv_file = CsvFile.new
   end

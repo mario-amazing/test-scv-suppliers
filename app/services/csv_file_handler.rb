@@ -2,19 +2,36 @@ require "csv"
 
 class CsvFileHandler
   CSV_SPLITER = '¦'.freeze
+
   class << self
     def call
       CsvFile.all.each do |csv_file|
-        parse_csv(csv_file)
+        handle_csv(csv_file)
       end
+      Supplier.all
     end
 
     private
 
-    def parse_csv(csv_file)
+    def handle_csv(csv_file)
       ActiveRecord::Base.transaction do
-        CSV.foreach(csv_file.attachment.path, headers: false) do |row|
-          code, name = row.split(CSV_SPLITER)
+        # Place here error handler when will be requirements
+        file_path = csv_file.attachment.path
+        csv_file.attachment_file_name == CsvFile::SUPPLIER_FILE ? handle_supplier(file_path) : handle_sku(file_path)
+        # csv_file.destroy
+      end
+    end
+
+    def handle_supplier(file_path)
+      CSV.foreach(file_path, headers: false) do |row|
+        code, name = row.first.split(CSV_SPLITER)
+        next if code.blank? || name.blank?
+
+        Supplier.find_or_initialize_by(code: code).tap do |supplier|
+          next if supplier.name == name
+
+          supplier.name = name
+          supplier.save
         end
       end
     end
