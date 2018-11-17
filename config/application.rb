@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module CsvParser
   class Application < Rails::Application
+    config.active_record.belongs_to_required_by_default = false
 
     config.generators do |g|
       g.test_framework :rspec,
